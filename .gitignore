@@ -1,0 +1,6 @@
+.venv/
+.pw-browsers/
+__pycache__/
+*.pyc
+storage_state.json
+chromium-profile/

@@ -1,0 +1,31 @@
+services:
+  tempail-api:
+    build: .
+    container_name: tempail-api
+    ports:
+      - "8000:8000"
+    environment:
+      HEADLESS: "true"
+      LOG_LEVEL: "INFO"
+      NAV_TIMEOUT_MS: "30000"
+      ACTION_TIMEOUT_MS: "15000"
+      USE_PERSISTENT_CONTEXT: "true"
+      BROWSER_USER_DATA_DIR: "/data/chromium-profile"
+      # Entrypoint copies the mount into /tmp and sets PLAYWRIGHT_STORAGE_STATE.
+    volumes:
+      # :z relabels the file for SELinux (required on Fedora / rootless Podman).
+      - ./storage_state.json:/app/storage_state.json:ro,z
+      - browser_profile:/data/chromium-profile
+    # Chromium needs a larger /dev/shm than Docker's 64 MB default.
+    shm_size: "2gb"
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  browser_profile:
