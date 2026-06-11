@@ -1,6 +1,47 @@
+# Python
 .venv/
-.pw-browsers/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Testing / lint
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Playwright
+.pw-browsers/
+playwright-report/
+test-results/
+
+# Browser session (CAPTCHA cookies, local profile)
 storage_state.json
 chromium-profile/
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
